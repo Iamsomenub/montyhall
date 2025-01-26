@@ -1,7 +1,7 @@
+import json
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from my_vis import test_plot
 
 TOTAL_GUESSES = 10000
 
@@ -124,12 +124,18 @@ def plot_results(results):
     plt.show()
 
 
+def save_to_json(obj, filename):
+    with open(filename, 'w') as json_file:
+        json.dump(obj, json_file, indent=4)
+
+
 def main():
     results = []
     for num_doors in range(3, MAX_NUM_DOORS + 1):
         results.append(run_game(num_doors))
     print_results(results)
     plot_results(results)
+    save_to_json(results, 'results.json')
 
 
 if __name__ == "__main__":

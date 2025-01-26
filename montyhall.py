@@ -1,6 +1,6 @@
 import json
+import argparse
 import matplotlib.pyplot as plt
-import numpy as np
 import random
 
 TOTAL_GUESSES = 10000
@@ -130,16 +130,17 @@ def save_to_json(obj, filename):
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Run Monty Hall simulation and save results to a JSON file.')
+    parser.add_argument('filename', type=str, help='The filename to save the results')
+    args = parser.parse_args()
+
     results = []
     for num_doors in range(3, MAX_NUM_DOORS + 1):
         results.append(run_game(num_doors))
     print_results(results)
+    save_to_json(results, args.filename)
     plot_results(results)
-    save_to_json(results, 'results.json')
 
 
 if __name__ == "__main__":
-    main()
-    
-    
-    
+    main()    
